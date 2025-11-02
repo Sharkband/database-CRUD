@@ -21,6 +21,8 @@ def createTable(schema, dropSchema):
         database_connection.rollback()
         cursor.execute(dropSchema)
         cursor.execute(schema)
+
+    database_connection.commit()
         
 
 #gets all students from the student table
@@ -45,14 +47,17 @@ def getAllStudents():
 def addStudent(first_name, last_name, email, enrollment_date):
     cursor.execute("""INSERT INTO students (first_name, last_name, email, enrollment_date)
     VALUES (%s, %s, %s, %s)""",(first_name, last_name, email, enrollment_date))
+    database_connection.commit()
     
 #updates a student's email with a new email
 def updateStudentEmail(student_id, new_email):
     cursor.execute("UPDATE students SET email = %s where student_id = %s ", (new_email,student_id))
+    database_connection.commit()
    
 #deletes a student from the students table
 def deleteStudent(student_id):
     cursor.execute("DELETE FROM students where student_id = %s ", (student_id,))
+    database_connection.commit()
    
 #main function to test different functions
 def main():
@@ -81,6 +86,9 @@ def main():
     deleteStudent(1)
 
     getAllStudents()
+
+    cursor.close()
+    database_connection.close()
 
 #calling main
 if __name__ == "__main__":
