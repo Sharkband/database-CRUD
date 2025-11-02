@@ -8,3 +8,7 @@ python databaseScripts/setupDatabase.py
 
 Step 3:
 python Application/database.py
+
+
+Video:
+https://youtu.be/Dr_CMIiwOFI
